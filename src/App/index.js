@@ -8,7 +8,6 @@ import Loader from './layout/Loader'
 import Aux from "../hoc/_Aux";
 import ScrollToTop from './layout/ScrollToTop';
 import routes from "../route";
-import Axios from "axios";
 
 const AdminLayout = Loadable({
     loader: () => import('./layout/AdminLayout'),
@@ -17,30 +16,23 @@ const AdminLayout = Loadable({
 
 class App extends Component {
     render() {
-        Axios.get("/api/sample").then((response) => {
-            if (response.data) {
-                console.log('hobi', response.data);
-            } else {
-                alert("fail");
-            }
-        })
         const menu = routes.map((route, index) => {
-          return (route.component) ? (
-              <Route
-                  key={index}
-                  path={route.path}
-                  exact={route.exact}
-                  name={route.name}
-                  render={props => (
-                      <route.component {...props} />
-                  )} />
-          ) : (null);
+            return (route.component) ? (
+                <Route
+                    key={index}
+                    path={route.path}
+                    exact={route.exact}
+                    name={route.name}
+                    render={props => (
+                        <route.component {...props} />
+                    )} />
+            ) : (null);
         });
 
         return (
             <Aux>
                 <ScrollToTop>
-                    <Suspense fallback={<Loader/>}>
+                    <Suspense fallback={<Loader />}>
                         <Switch>
                             {menu}
                             <Route path="/" component={AdminLayout} />
