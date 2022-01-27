@@ -1,40 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Aux from "../../hoc/_Aux";
 import axios from "axios";
-import Listpage from "./MainList";
-class Dashboard extends React.Component {
-    state = {
-        loading: false,
-        ItemList: []
-    };
+import Listpage from "./MainItem";
 
-    loadItem = async () => {
+function Dashboard() {
+    const [setLoading] = useState(false);
+    const [ItemList, setItemList] = useState([]);
+
+    const loadItem = async () => {
         axios.get("/api/main/list?categoryType=DAILY")
             .then(({ data }) => {
-                this.setState({
-                    loading: true,
-                    ItemList: data.data
-                });
+                setItemList(data.data);
+                setLoading(true);
             }).catch(e => {
                 console.error(e); // 에러 표시
-                this.setState({
-                    loading: false
-                });
+                setLoading(false);
             });
     }
-    componentDidMount() {
-        this.loadItem(); // loadItem 호출
-    }
 
-    render() {
-        const { ItemList } = this.state;
-        return (
-            <Aux>
-                <Listpage ItemCard={ItemList} />
-            </Aux>
-        );
-    }
+    useEffect(() => {
+        loadItem();
+    })
+
+    return (
+        <Aux>
+            <Listpage ItemCard={ItemList} />
+        </Aux>
+    );
 }
 
 export default Dashboard;

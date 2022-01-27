@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col, Card, Badge } from 'react-bootstrap';
 
-class Listpage extends React.Component {
+class MainItem extends React.Component {
     state = {};
 
     render() {
@@ -27,7 +27,7 @@ class Listpage extends React.Component {
                                         <div className="col-6">
                                             <div className="text-center">
                                                 <span className="text-muted m-b-20">Category</span>
-                                                <h5 className="text-white"><Badge className="youtube-red" pill>{itemdata.category}</Badge></h5>
+                                                <h5 className="text-white"><Badge className="youtube-red" pill>{itemdata.categoryType}</Badge></h5>
                                             </div>
                                         </div>
                                         <div className="col-6">
@@ -46,4 +46,4 @@ class Listpage extends React.Component {
         );
     }
 }
-export default Listpage;
+export default MainItem;
