@@ -1,30 +1,32 @@
 import React, { useEffect, useState } from 'react';
-
+import { InputGroup, DropdownButton, Dropdown } from 'react-bootstrap';
 import Aux from "../../hoc/_Aux";
-import axios from "axios";
+import * as mainSvc from "../../services/main"
 import Listpage from "./MainItem";
 
 function Dashboard() {
-    const [setLoading] = useState(false);
     const [ItemList, setItemList] = useState([]);
 
     const loadItem = async () => {
-        axios.get("/api/main/list?categoryType=DAILY")
+        mainSvc.getMainList('DAILY')
             .then(({ data }) => {
-                setItemList(data.data);
-                setLoading(true);
-            }).catch(e => {
-                console.error(e); // 에러 표시
-                setLoading(false);
+                setItemList(data);
             });
     }
 
     useEffect(() => {
         loadItem();
-    })
+    }, [])
 
     return (
         <Aux>
+            <DropdownButton as={InputGroup.Prepend} title="Dropdown" id="input-group-dropdown-1">
+                <Dropdown.Item href="#">Action</Dropdown.Item>
+                <Dropdown.Item href="#">Another action</Dropdown.Item>
+                <Dropdown.Item href="#">Something else here</Dropdown.Item>
+                <Dropdown.Divider />
+                <Dropdown.Item href="#">Separated link</Dropdown.Item>
+            </DropdownButton>
             <Listpage ItemCard={ItemList} />
         </Aux>
     );
