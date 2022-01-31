@@ -1,16 +1,17 @@
 import React from "react";
 import { Row, Col, Card, Badge } from 'react-bootstrap';
+import Skeleton from './Skeleton';
+import { Link } from 'react-router-dom';
 
-class MainItem extends React.Component {
-    state = {};
+const MainItem = props => {
+    const { ItemCard } = props;
 
-    render() {
-        const { ItemCard } = this.props;
-        return (
-            <Row>
-                {ItemCard && ItemCard.map((itemdata) => {
-                    return (
-                        <Col md={6} xl={3} key={itemdata.channelId}>
+    return (
+        <Row>
+            {ItemCard.length !== 0 ? ItemCard.map((itemdata) => {
+                return (
+                    <Col md={6} xl={3} key={itemdata.channelId}>
+                        <Link to={`/dashboard/detail/${itemdata.channelId}`}>
                             <Card className='card-social'>
                                 <Card.Body className='border-bottom'>
                                     <div className="row align-items-center justify-content-center">
@@ -39,11 +40,14 @@ class MainItem extends React.Component {
                                     </div>
                                 </Card.Body>
                             </Card>
-                        </Col>
-                    );
-                })}
-            </Row>
-        );
-    }
+                        </Link>
+                    </Col>
+                );
+            }) : new Array(4).fill(1).map((_, i) => {
+                return <Skeleton key={i} />
+            })
+            }
+        </Row>
+    );
 }
 export default MainItem;
