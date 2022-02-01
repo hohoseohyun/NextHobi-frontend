@@ -6,9 +6,10 @@ import Listpage from "./MainItem";
 
 function Dashboard() {
     const [ItemList, setItemList] = useState([]);
+    const [categoryType, setCategoryType] = useState('');
 
     const loadItem = async () => {
-        mainSvc.getMainList('DAILY')
+        mainSvc.getMainList('ALL')
             .then(({ data }) => {
                 setItemList(data);
             });
@@ -20,15 +21,13 @@ function Dashboard() {
 
     return (
         <Aux>
-            <DropdownButton as={InputGroup.Prepend} title="Dropdown" id="input-group-dropdown-1">
-                <Dropdown.Item href="#">Action</Dropdown.Item>
-                <Dropdown.Item href="#">Another action</Dropdown.Item>
-                <Dropdown.Item href="#">Something else here</Dropdown.Item>
-                <Dropdown.Divider />
-                <Dropdown.Item href="#">Separated link</Dropdown.Item>
+            <DropdownButton as={InputGroup.Prepend} title="카테고리" id="input-group-dropdown-1">
+                <Dropdown.Item href="#">일상</Dropdown.Item>
+                <Dropdown.Item href="#">먹방</Dropdown.Item>
+                <Dropdown.Item href="#">뷰티</Dropdown.Item>
             </DropdownButton>
             <Listpage ItemCard={ItemList} />
-        </Aux>
+        </Aux >
     );
 }
 

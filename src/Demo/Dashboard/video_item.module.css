@@ -1,0 +1,39 @@
+.content {
+  padding: 10px 0;
+}
+
+.video {
+  height: 280px;
+}
+
+.video::after {
+  content: "";
+  display: block;
+  padding-top: 100%;
+}
+
+.text {
+  padding-top: 20px;
+}
+
+.title {
+  font-size: 1.2em;
+  padding-bottom: 5px;
+}
+
+.channel {
+  display: block;
+  font-size: 1em;
+  color: #999;
+  padding-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+  .text {
+    font-size: 0.875em;
+  }
+
+  .video {
+    height: 300px;
+  }
+}
